@@ -1,11 +1,17 @@
-import React, { createContext, useCallback, useState, useContext } from 'react';
+import React, {
+  createContext,
+  useCallback,
+  useState,
+  useContext,
+  useMemo,
+} from 'react';
 import api from '../services/api';
 
 interface User {
   id: string;
   name: string;
   email: string;
-  avatar_url: string;
+  avatarUrl: string;
 }
 
 interface AuthState {
@@ -35,7 +41,7 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     const user = localStorage.getItem('@rently:user');
 
     if (token && user) {
-      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      api.defaults.headers.common.Authorization = `Bearer ${token}`;
 
       return { token, user: JSON.parse(user) };
     }
@@ -61,7 +67,7 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     localStorage.setItem('@rently:token', token);
     localStorage.setItem('@rently:user', JSON.stringify(user));
 
-    api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    api.defaults.headers.common.Authorization = `Bearer ${token}`;
 
     setData({ token, user });
   }, []);
@@ -80,7 +86,10 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   return (
     <AuthContext.Provider
-      value={{ user: data.user, signIn, signOut, updateUser }}
+      value={useMemo(
+        () => ({ user: data.user, signIn, signOut, updateUser }),
+        [data.user, signIn, signOut, updateUser],
+      )}
     >
       {children}
     </AuthContext.Provider>
