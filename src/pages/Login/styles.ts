@@ -75,6 +75,8 @@ export const CheckboxContainer = styled.div`
   input {
     width: 0.9375rem;
     height: 0.9375rem;
+    cursor: pointer;
+    filter: hue-rotate(31deg);
   }
   p {
     margin-left: 0.5rem;
