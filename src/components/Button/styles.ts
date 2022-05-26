@@ -29,7 +29,7 @@ export const Container = styled.button<ContainerProps>`
   border: 0;
   border-radius: 10px;
   font-weight: 500;
-  height: 56px;
+  height: 48px;
   /* margin-top: 16px; */
   padding: 0 16px;
   transition: background-color 0.2s;

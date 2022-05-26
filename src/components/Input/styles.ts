@@ -11,13 +11,13 @@ interface ContainerProps {
 
 export const Container = styled.div<ContainerProps>`
   /* background: transparent; */
-  padding: 0.75rem 0.5rem;
+  padding: 0.75rem 0.25rem;
   width: 100%;
   border-bottom: 2px solid #ece9f4;
   color: #666360;
   display: flex;
   align-items: center;
-  transition: border-color 0.1s ease-in-out;
+  transition: border-color 0.3s ease-in-out;
   & + div {
     margin-top: 8px;
   }
@@ -29,13 +29,13 @@ export const Container = styled.div<ContainerProps>`
   ${(props) =>
     props.isFocused &&
     css`
-      color: #ff9000;
+      color: #4e3885;
       border-color: #4e3885;
     `}
   ${(props) =>
     props.isFilled &&
     css`
-      color: #ff9000;
+      color: #4e3885;
     `}
   input {
     flex: 1;
