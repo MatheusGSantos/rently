@@ -35,7 +35,6 @@ export const NavbarMenuItem = styled(Link)<NavbarMenuItemProps>`
   color: #000;
   font-weight: 700;
   font-size: 1rem;
-  /* font-family: Poppins, sans-serif; */
   text-decoration: none;
   transition: 0.2s all ease-in-out;
 

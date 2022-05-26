@@ -16,11 +16,11 @@ const Navbar: React.FC = () => {
     <NavbarContainer>
       <NavbarLogo src={logoImg} onClick={() => navigate('/')} alt="rently" />
       <NavbarMenu>
-        <NavbarMenuItem to="#">My Ads</NavbarMenuItem>
-        <NavbarMenuItem to="#">Rents</NavbarMenuItem>
+        <NavbarMenuItem to="/my-adds">My Ads</NavbarMenuItem>
+        <NavbarMenuItem to="/rents">Rents</NavbarMenuItem>
         <NavbarMenuLoginSignUpContainer>
-          <NavbarMenuItem to="#">Login</NavbarMenuItem>
-          <NavbarMenuItem to="#" button>
+          <NavbarMenuItem to="/login">Login</NavbarMenuItem>
+          <NavbarMenuItem to="/signup" button>
             Sign Up
           </NavbarMenuItem>
         </NavbarMenuLoginSignUpContainer>
