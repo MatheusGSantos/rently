@@ -16,6 +16,7 @@ export const Content = styled.div`
   min-height: 500px;
   background-color: #fff;
   box-shadow: 4px 4px 8px 1px rgb(0 0 0 / 20%);
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -72,12 +73,6 @@ export const CheckboxContainer = styled.div`
   display: flex;
   align-items: center;
 
-  input {
-    width: 0.9375rem;
-    height: 0.9375rem;
-    cursor: pointer;
-    filter: hue-rotate(31deg);
-  }
   p {
     margin-left: 0.5rem;
     font-size: 0.875rem;

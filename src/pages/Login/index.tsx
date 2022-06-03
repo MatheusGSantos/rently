@@ -1,18 +1,20 @@
-import React, { useRef, useCallback } from 'react';
-import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
+import React, { useCallback, useRef } from 'react';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
-import * as Yup from 'yup';
 import { Link, useNavigate } from 'react-router-dom';
+
+import { FiLock, FiMail } from 'react-icons/fi';
+
+import * as Yup from 'yup';
 
 import { useAuth } from '../../hooks/auth';
 // import { useToast } from '../../hooks/toast';
-// import getValidationErrors from '../../utils/getValidationErrors';
 
-import logoImg from '../../assets/Logo.png';
-
-import Input from '../../components/Input';
 import Button from '../../components/Button';
+import Checkbox from '../../components/Checkbox';
+import Input from '../../components/Input';
+
+import getValidationErrors from '../../utils/getValidationErrors';
 
 import {
   CheckboxContainer,
@@ -22,7 +24,6 @@ import {
   PasswordActionsContainer,
   SignupContainer,
 } from './styles';
-import getValidationErrors from '../../utils/getValidationErrors';
 
 interface LoginFormData {
   email: string;
@@ -53,12 +54,15 @@ const Login: React.FC = () => {
           abortEarly: false,
         });
 
-        await signIn({
-          email: data.email,
-          password: data.password,
-        });
+        // await signIn(
+        //   {
+        //     email: data.email,
+        //     password: data.password,
+        //   },
+        //   data.stayLogged,
+        // );
 
-        navigate('/');
+        // navigate('/');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
@@ -91,6 +95,7 @@ const Login: React.FC = () => {
             icon={FiMail}
             containerStyle={{ marginBottom: '1rem' }}
             placeholder="E-mail"
+            autoComplete="email"
           />
           <Input
             name="password"
@@ -98,13 +103,14 @@ const Login: React.FC = () => {
             containerStyle={{ marginBottom: '1rem' }}
             type="password"
             placeholder="Senha"
+            autoComplete="current-password"
           />
 
           <Button type="submit">Login</Button>
 
           <PasswordActionsContainer>
             <CheckboxContainer>
-              <input type="checkbox" name="stayLogged" id="stayLogged" />
+              <Checkbox name="stayLogged" />
               <p>Remember me</p>
             </CheckboxContainer>
             <Link to="/forgot-password">Forgot my password</Link>

@@ -6,6 +6,11 @@ import React, {
   useMemo,
 } from 'react';
 import api from '../services/api';
+import {
+  getLocalStorageItem,
+  removeLocalStorageItem,
+  setLocalStorageItem,
+} from '../utils/localStorageUtils';
 
 interface User {
   id: string;
@@ -26,7 +31,7 @@ interface SignInCredentials {
 
 interface AuthContextData {
   user: User;
-  signIn(credentials: SignInCredentials): Promise<void>;
+  signIn(credentials: SignInCredentials, rememberMe: boolean): Promise<void>;
   signOut(): void;
   updateUser(user: User): void;
 }
@@ -37,8 +42,8 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [data, setData] = useState<AuthState>(() => {
-    const token = localStorage.getItem('@rently:token');
-    const user = localStorage.getItem('@rently:user');
+    const token = getLocalStorageItem('token');
+    const user = getLocalStorageItem('user');
 
     if (token && user) {
       api.defaults.headers.common.Authorization = `Bearer ${token}`;
@@ -50,31 +55,36 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   });
 
   const signOut = useCallback(() => {
-    localStorage.removeItem('@rently:token');
-    localStorage.removeItem('@rently:user');
+    removeLocalStorageItem('token');
+    removeLocalStorageItem('user');
 
     setData({} as AuthState);
   }, []);
 
-  const signIn = useCallback(async ({ email, password }: SignInCredentials) => {
-    const response = await api.post('sessions', {
-      email,
-      password,
-    });
+  const signIn = useCallback(
+    async ({ email, password }: SignInCredentials, rememberMe: boolean) => {
+      const response = await api.post('sessions', {
+        email,
+        password,
+      });
 
-    const { token, user } = response.data;
+      const { token, user } = response.data;
 
-    localStorage.setItem('@rently:token', token);
-    localStorage.setItem('@rently:user', JSON.stringify(user));
+      if (rememberMe) {
+        setLocalStorageItem('token', token);
+        setLocalStorageItem('user', user);
+      }
 
-    api.defaults.headers.common.Authorization = `Bearer ${token}`;
+      api.defaults.headers.common.Authorization = `Bearer ${token}`;
 
-    setData({ token, user });
-  }, []);
+      setData({ token, user });
+    },
+    [],
+  );
 
   const updateUser = useCallback(
     (user: User) => {
-      localStorage.setItem('@rently:user', JSON.stringify(user));
+      setLocalStorageItem('user', user);
 
       setData({
         token: data.token,
