@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 interface NavbarMenuItemProps {
-  button?: boolean;
+  $background?: boolean;
 }
 
 export const NavbarContainer = styled.nav`
@@ -42,8 +42,8 @@ export const NavbarMenuItem = styled(Link)<NavbarMenuItemProps>`
     color: #3700c2;
   }
 
-  ${(props) =>
-    props.button &&
+  ${({ $background }) =>
+    $background &&
     css`
       padding: 0.375rem 1.75rem;
       background-color: #51b651;

@@ -20,7 +20,7 @@ const Navbar: React.FC = () => {
         <NavbarMenuItem to="/rents">Rents</NavbarMenuItem>
         <NavbarMenuLoginSignUpContainer>
           <NavbarMenuItem to="/login">Login</NavbarMenuItem>
-          <NavbarMenuItem to="/signup" button>
+          <NavbarMenuItem to="/signup" $background>
             Sign Up
           </NavbarMenuItem>
         </NavbarMenuLoginSignUpContainer>
