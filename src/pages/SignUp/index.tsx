@@ -100,7 +100,7 @@ const SignUp: React.FC = () => {
             placeholder="Senha"
           />
 
-          <Button type="submit">SignUp</Button>
+          <Button type="submit">Sign Up</Button>
         </Form>
 
         <LogInContainer>

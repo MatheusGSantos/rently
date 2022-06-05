@@ -93,7 +93,7 @@ const LogIn: React.FC = () => {
             autoComplete="current-password"
           />
 
-          <Button type="submit">Login</Button>
+          <Button type="submit">Sign In</Button>
 
           <PasswordActionsContainer>
             <CheckboxContainer>

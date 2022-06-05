@@ -1,5 +1,5 @@
 import { shade } from 'polished';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
@@ -7,6 +7,15 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 `;
 
 export const Content = styled.div`
@@ -27,6 +36,8 @@ export const Content = styled.div`
     width: 100%;
     max-width: 375px;
 
+    animation: ${fadeIn} 1s;
+
     button {
       margin: 1rem 0;
     }
@@ -37,6 +48,8 @@ export const FormHeader = styled.div`
   width: 100%;
   max-width: 375px;
   margin-bottom: 3rem;
+
+  animation: ${fadeIn} 1s;
   h1 {
     font-weight: 700;
     font-size: 2.5;
@@ -54,6 +67,8 @@ export const PasswordActionsContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  animation: ${fadeIn} 1s;
 
   a {
     font-family: 'Roboto', sans-serif;
@@ -87,6 +102,8 @@ export const SignupContainer = styled.div`
   align-items: center;
   justify-content: center;
   color: #979797;
+
+  animation: ${fadeIn} 1s;
   a {
     margin-left: 0.5rem;
     color: #4b3387;

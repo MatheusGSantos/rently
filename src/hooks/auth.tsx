@@ -1,10 +1,10 @@
-import { AxiosError } from 'axios';
 import React, {
   createContext,
   useCallback,
   useState,
   useContext,
   useMemo,
+  useEffect,
 } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';

@@ -6,13 +6,20 @@ import LogIn from '../pages/LogIn';
 import NotFound from '../pages/NotFound';
 import SignUp from '../pages/SignUp';
 import Wrapper from '../pages/Wrapper';
-// import RedirectHandler from './RedirectHandler';
+import RedirectHandler from './RedirectHandler';
 
 const RoutesIndexer: React.FC = () => (
   <Routes>
     <Route path="/" element={<Wrapper />}>
       <Route index element={<Home />} />
-      <Route path="login" element={<LogIn />} />
+      <Route
+        path="login"
+        element={
+          <RedirectHandler handlerType="logged">
+            <LogIn />
+          </RedirectHandler>
+        }
+      />
       <Route path="signup" element={<SignUp />} />
       <Route path="*" element={<NotFound />} />
     </Route>
