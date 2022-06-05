@@ -1,14 +1,13 @@
 import React, { useCallback, useRef } from 'react';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { FiLock, FiMail } from 'react-icons/fi';
 
 import * as Yup from 'yup';
 
 import { useAuth } from '../../hooks/auth';
-// import { useToast } from '../../hooks/toast';
 
 import Button from '../../components/Button';
 import Checkbox from '../../components/Checkbox';
@@ -28,15 +27,13 @@ import {
 interface LoginFormData {
   email: string;
   password: string;
+  stayLogged: boolean;
 }
 
-const Login: React.FC = () => {
+const LogIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
   const { signIn } = useAuth();
-  // const { addToast } = useToast();
-
-  const navigate = useNavigate();
 
   const handleSubmit = useCallback(
     async (data: LoginFormData) => {
@@ -45,41 +42,31 @@ const Login: React.FC = () => {
 
         const schema = Yup.object().shape({
           email: Yup.string()
-            .required('E-mail obrigatório')
-            .email('Digite um e-mail válido'),
-          password: Yup.string().required('Senha obrigatória'),
+            .required('E-mail required')
+            .email('Insert a valid e-mail'),
+          password: Yup.string().required('Password required'),
         });
 
         await schema.validate(data, {
           abortEarly: false,
         });
 
-        // await signIn(
-        //   {
-        //     email: data.email,
-        //     password: data.password,
-        //   },
-        //   data.stayLogged,
-        // );
-
-        // navigate('/');
+        await signIn(
+          {
+            email: data.email,
+            password: data.password,
+          },
+          data.stayLogged,
+        );
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
 
           formRef.current?.setErrors(errors);
-
-          // return;
         }
-
-        // addToast({
-        //   type: 'error',
-        //   title: 'Erro na autenticação',
-        //   description: 'Ocorreu um erro ao fazer login, cheque as credenciais.',
-        // });
       }
     },
-    [signIn, navigate],
+    [signIn],
   );
 
   return (
@@ -126,4 +113,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export default LogIn;

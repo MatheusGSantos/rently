@@ -24,6 +24,7 @@ const Input: React.FC<InputProps> = ({
   containerStyle = {},
   icon: Icon,
   loading = false,
+  type = 'text',
   ...rest
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -74,8 +75,9 @@ const Input: React.FC<InputProps> = ({
         onFocus={handleInputFocus}
         onBlur={handleInputBlur}
         defaultValue={defaultValue}
-        type="text"
+        type={type}
         ref={inputRef}
+        autoComplete={type === 'password' ? 'current-password' : 'on'}
         {...rest}
       />
 

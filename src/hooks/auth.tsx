@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import React, {
   createContext,
   useCallback,
@@ -5,6 +6,8 @@ import React, {
   useContext,
   useMemo,
 } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import api from '../services/api';
 import {
   getLocalStorageItem,
@@ -41,6 +44,7 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
+  const navigate = useNavigate();
   const [data, setData] = useState<AuthState>(() => {
     const token = getLocalStorageItem('token');
     const user = getLocalStorageItem('user');
@@ -63,23 +67,40 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const signIn = useCallback(
     async ({ email, password }: SignInCredentials, rememberMe: boolean) => {
-      const response = await api.post('sessions', {
-        email,
-        password,
-      });
+      const id = toast.loading('Submitting...');
+      try {
+        const response = await api.post('sessions', {
+          email,
+          password,
+        });
 
-      const { token, user } = response.data;
+        const { token, user } = response.data;
 
-      if (rememberMe) {
-        setLocalStorageItem('token', token);
-        setLocalStorageItem('user', user);
+        if (rememberMe) {
+          setLocalStorageItem('token', token);
+          setLocalStorageItem('user', user);
+        }
+
+        api.defaults.headers.common.Authorization = `Bearer ${token}`;
+
+        setData({ token, user });
+        toast.update(id, {
+          render: 'Logged in successfully!',
+          type: 'success',
+          isLoading: false,
+        });
+        window.location.pathname === '/login' && navigate('/');
+      } catch (err: any) {
+        toast.update(id, {
+          render: `Error: ${err?.message}`,
+          type: 'error',
+          isLoading: false,
+          autoClose: 4000,
+          hideProgressBar: false,
+        });
       }
-
-      api.defaults.headers.common.Authorization = `Bearer ${token}`;
-
-      setData({ token, user });
     },
-    [],
+    [navigate],
   );
 
   const updateUser = useCallback(
