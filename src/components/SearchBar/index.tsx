@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FiSearch } from 'react-icons/fi';
+import { FaSearch } from 'react-icons/fa';
 import { Container } from './styles';
 
 const SearchBar: React.FC = () => {
@@ -31,7 +31,7 @@ const SearchBar: React.FC = () => {
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
       />
-      <FiSearch color="#A0A0A0" onClick={handleSubmitSearch} />
+      <FaSearch color="#A0A0A0" onClick={handleSubmitSearch} />
     </Container>
   );
 };
