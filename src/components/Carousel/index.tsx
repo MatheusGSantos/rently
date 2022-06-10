@@ -2,6 +2,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import carsImg from '../../assets/homepage/cars.png';
 import computersImg from '../../assets/homepage/computers.png';
@@ -12,48 +13,70 @@ import gamingImg from '../../assets/homepage/gaming.png';
 import { CarouselContainer, CustomizedSlider } from './styles';
 
 const Carousel: React.FC = () => {
+  const navigate = useNavigate();
+  const navigateToSearch = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    category: string,
+  ): void => {
+    e.stopPropagation();
+    navigate({ pathname: '/search', search: `?category=${category}` });
+  };
+
   const settings = {
     dots: true,
     infinite: false,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 2,
+    draggable: false,
   };
   return (
     <CustomizedSlider {...settings}>
       <div>
         <CarouselContainer>
-          <img src={carsImg} alt="car" />
+          <div onClick={(e) => navigateToSearch(e, 'cars')}>
+            <img src={carsImg} alt="car" />
+          </div>
           <p>Cars</p>
         </CarouselContainer>
       </div>
       <div>
         <CarouselContainer>
-          <img src={computersImg} alt="computer" />
+          <div onClick={(e) => navigateToSearch(e, 'computers')}>
+            <img src={computersImg} alt="computer" />
+          </div>
           <p>Computers</p>
         </CarouselContainer>
       </div>
       <div>
         <CarouselContainer>
-          <img src={furnitureImg} alt="furniture" />
+          <div onClick={(e) => navigateToSearch(e, 'furniture')}>
+            <img src={furnitureImg} alt="furniture" />
+          </div>
           <p>Furniture</p>
         </CarouselContainer>
       </div>
       <div>
         <CarouselContainer>
-          <img src={kitchenImg} alt="kitchen" />
+          <div onClick={(e) => navigateToSearch(e, 'kitchen')}>
+            <img src={kitchenImg} alt="kitchen" />
+          </div>
           <p>Kitchen</p>
         </CarouselContainer>
       </div>
       <div>
         <CarouselContainer>
-          <img src={smartphonesImg} alt="smartphone" />
+          <div onClick={(e) => navigateToSearch(e, 'smartphones')}>
+            <img src={smartphonesImg} alt="smartphone" />
+          </div>
           <p>Smartphones</p>
         </CarouselContainer>
       </div>
       <div>
         <CarouselContainer>
-          <img src={gamingImg} alt="gaming" />
+          <div onClick={(e) => navigateToSearch(e, 'gaming')}>
+            <img src={gamingImg} alt="gaming" />
+          </div>
           <p>Gaming</p>
         </CarouselContainer>
       </div>

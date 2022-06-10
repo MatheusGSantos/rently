@@ -1,4 +1,5 @@
 import React from 'react';
+import Card from '../../components/Card';
 
 import Carousel from '../../components/Carousel';
 import SearchBar from '../../components/SearchBar';
@@ -17,6 +18,13 @@ const Home: React.FC = () => {
         <div id="carousel-wrapper">
           <h3>Recommended</h3>
           <Carousel />
+        </div>
+      </section>
+      <section>
+        <div id="popular-products-wrapper">
+          <h3>Popular</h3>
+          <Card description="bla" image="bla" seller="bla" title="bla" />
+          <Card description="bla" image="bla" seller="bla" title="bla" />
         </div>
       </section>
     </Container>

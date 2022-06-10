@@ -15,6 +15,10 @@ export const Container = styled.div`
       color: #666568;
       margin-bottom: 1rem;
     }
+    h3 {
+      color: #666568;
+      margin-bottom: 2rem;
+    }
     #searchbar-wrapper {
       width: 100%;
       display: flex;
@@ -29,10 +33,13 @@ export const Container = styled.div`
       display: flex;
       flex-direction: column;
       margin-top: 6rem;
-      h3 {
-        color: #666568;
-        margin-bottom: 2rem;
-      }
+    }
+
+    #popular-products-wrapper {
+      max-width: 1200px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
     }
   }
 `;

@@ -10,9 +10,8 @@ export const NavbarContainer = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 2rem;
-  margin-bottom: 1rem;
-  /* border-bottom: 1px solid #e6e6e6; */
+  padding: 1.5rem 2rem;
+  box-shadow: 0 4px 8px -8px rgba(0, 0, 0, 0.5);
 `;
 
 export const NavbarLogo = styled.img`

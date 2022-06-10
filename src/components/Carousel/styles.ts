@@ -18,9 +18,16 @@ export const CarouselContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  img {
-    width: 150px;
-    height: 150px;
+  div {
+    cursor: pointer;
+    border-radius: 50%;
+    border: 2px solid #d9d0f2;
+
+    img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+    }
   }
   p {
     font-size: 0.875rem;
