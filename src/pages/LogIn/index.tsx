@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import { Link } from 'react-router-dom';
@@ -23,6 +23,7 @@ import {
   PasswordActionsContainer,
   SignupContainer,
 } from './styles';
+import { useScroll } from '../../hooks/scroll';
 
 interface LoginFormData {
   email: string;
@@ -32,6 +33,15 @@ interface LoginFormData {
 
 const LogIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
+  const { setScrollState } = useScroll();
+
+  useEffect(() => {
+    setScrollState(false);
+
+    return () => {
+      setScrollState(true);
+    };
+  }, [setScrollState]);
 
   const { signIn } = useAuth();
 

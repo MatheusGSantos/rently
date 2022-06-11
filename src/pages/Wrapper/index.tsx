@@ -3,13 +3,15 @@ import { Outlet } from 'react-router-dom';
 import { ToastContainer, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Navbar from '../../components/Navbar';
+import { useScroll } from '../../hooks/scroll';
 import { Container, Content } from './styles';
 
 const Wrapper: React.FC = () => {
+  const { scroll } = useScroll();
   return (
     <Container>
       <Navbar />
-      <Content>
+      <Content scrollaActive={scroll}>
         <Outlet />
         <ToastContainer
           position="top-right"
