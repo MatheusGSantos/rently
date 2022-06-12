@@ -1,12 +1,15 @@
-import { shade } from 'polished';
 import styled, { keyframes } from 'styled-components';
+import bgImg from '../../assets/triangle_pattern.jpg';
 
 export const Container = styled.div`
-  width: 100%;
+  width: calc(100% + 4rem);
+  left: 0;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: absolute;
+  background: url(${bgImg});
 `;
 
 const fadeIn = keyframes`

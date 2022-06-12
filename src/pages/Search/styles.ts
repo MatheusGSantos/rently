@@ -5,6 +5,13 @@ export const Container = styled.div`
   min-height: 100%;
   padding-bottom: 2rem;
 
+  #content {
+    padding: 2rem;
+    background: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 4px 4px 8px 1px rgb(0 0 0 / 20%);
+  }
+
   section {
     width: 100%;
     padding-top: 4.5rem;
@@ -28,19 +35,30 @@ export const Container = styled.div`
       justify-content: center;
     }
 
-    #carousel-wrapper {
-      width: 100%;
+    #products-wrapper {
       max-width: 1200px;
+      width: 100%;
       display: flex;
       flex-direction: column;
-      margin-top: 6rem;
     }
+    #pagination-wrapper {
+      display: flex;
+      justify-content: end;
+      align-items: center;
+      margin-top: 2.5rem;
+    }
+  }
+`;
 
-    #popular-products-wrapper {
-      max-width: 1200px;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-    }
+export const PaginationNumber = styled.button<{ isFocused: boolean }>`
+  outline: none;
+  border: none;
+  background: transparent;
+  color: #666568;
+  ${({ isFocused }) => isFocused && `color: #4b3387;`}
+  font-size: 1rem;
+  font-weight: bold;
+  & + button {
+    margin-left: 0.5rem;
   }
 `;

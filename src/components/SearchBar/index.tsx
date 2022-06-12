@@ -1,17 +1,30 @@
 import React, { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Container } from './styles';
 
-const SearchBar: React.FC = () => {
+interface SearchBarProps {
+  redirectToSearch?: boolean;
+  updateUrl?: boolean;
+}
+
+const SearchBar: React.FC<SearchBarProps> = ({
+  redirectToSearch = true,
+  updateUrl = false,
+}) => {
   const [value, setValue] = useState('');
   const [isFocused, setIsFocused] = useState(false);
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setValue(e.target.value);
   };
 
   const handleSubmitSearch = (): void => {
-    console.log(`Sending ${value}`);
-    console.log(`Redirecting`);
+    updateUrl && setSearchParams(`value=${value}`, { replace: false });
+    redirectToSearch &&
+      navigate({ pathname: '/search', search: `?value=${value}` });
   };
 
   const handlePressEnter = (e: React.KeyboardEvent<HTMLInputElement>): void => {

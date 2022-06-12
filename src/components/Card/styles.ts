@@ -2,14 +2,14 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
-  border: 1px solid #ccc;
+  border: 2px solid #ccc;
   cursor: pointer;
   display: flex;
   padding: 1.5rem;
-  transition: border 0.1s ease-in-out;
+  transition: border-color 0.1s ease-in-out;
 
   &:hover {
-    border: 2px solid #8d75cd;
+    border-color: #8d75cd;
   }
 
   p {

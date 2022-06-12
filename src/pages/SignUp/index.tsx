@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import { Link, useNavigate } from 'react-router-dom';
@@ -15,6 +15,7 @@ import getValidationErrors from '../../utils/getValidationErrors';
 
 import { Container, Content, FormHeader, LogInContainer } from './styles';
 import { ApiService } from '../../services/ApiService';
+import { useScroll } from '../../hooks/scroll';
 
 interface SignUpFormData {
   name: string;
@@ -24,6 +25,16 @@ interface SignUpFormData {
 
 const SignUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
+
+  const { setScrollState } = useScroll();
+
+  useEffect(() => {
+    setScrollState(false);
+
+    return () => {
+      setScrollState(true);
+    };
+  }, [setScrollState]);
 
   const navigate = useNavigate();
 

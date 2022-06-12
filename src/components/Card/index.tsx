@@ -3,17 +3,28 @@ import Skeleton from 'react-loading-skeleton';
 import { FaStar } from 'react-icons/fa';
 import { Container } from './styles';
 
-interface ICardProps {
+export interface ICardProps {
+  id: string;
   title: string;
   description: string;
   image: string;
   seller: string;
+  price: string;
+  style?: React.CSSProperties;
 }
 
-const Card: React.FC<ICardProps> = ({ title, description, image, seller }) => {
+const Card: React.FC<ICardProps> = ({
+  id,
+  title,
+  description,
+  image,
+  seller,
+  price,
+  style,
+}) => {
   const [loading, setLoading] = useState(true);
   return (
-    <Container>
+    <Container style={style}>
       {loading ? (
         <>
           <Skeleton height="128px" width="128px" />

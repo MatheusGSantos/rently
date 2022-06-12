@@ -34,7 +34,7 @@ const Carousel: React.FC = () => {
     <CustomizedSlider {...settings}>
       <div>
         <CarouselContainer>
-          <div onClick={(e) => navigateToSearch(e, 'cars')}>
+          <div onClick={(e) => navigateToSearch(e, 'Cars')}>
             <img src={carsImg} alt="car" />
           </div>
           <p>Cars</p>
@@ -42,7 +42,7 @@ const Carousel: React.FC = () => {
       </div>
       <div>
         <CarouselContainer>
-          <div onClick={(e) => navigateToSearch(e, 'computers')}>
+          <div onClick={(e) => navigateToSearch(e, 'Computers')}>
             <img src={computersImg} alt="computer" />
           </div>
           <p>Computers</p>
@@ -50,7 +50,7 @@ const Carousel: React.FC = () => {
       </div>
       <div>
         <CarouselContainer>
-          <div onClick={(e) => navigateToSearch(e, 'furniture')}>
+          <div onClick={(e) => navigateToSearch(e, 'Furniture')}>
             <img src={furnitureImg} alt="furniture" />
           </div>
           <p>Furniture</p>
@@ -58,7 +58,7 @@ const Carousel: React.FC = () => {
       </div>
       <div>
         <CarouselContainer>
-          <div onClick={(e) => navigateToSearch(e, 'kitchen')}>
+          <div onClick={(e) => navigateToSearch(e, 'Kitchen')}>
             <img src={kitchenImg} alt="kitchen" />
           </div>
           <p>Kitchen</p>
@@ -66,7 +66,7 @@ const Carousel: React.FC = () => {
       </div>
       <div>
         <CarouselContainer>
-          <div onClick={(e) => navigateToSearch(e, 'smartphones')}>
+          <div onClick={(e) => navigateToSearch(e, 'Smartphones')}>
             <img src={smartphonesImg} alt="smartphone" />
           </div>
           <p>Smartphones</p>
@@ -74,7 +74,7 @@ const Carousel: React.FC = () => {
       </div>
       <div>
         <CarouselContainer>
-          <div onClick={(e) => navigateToSearch(e, 'gaming')}>
+          <div onClick={(e) => navigateToSearch(e, 'Gaming')}>
             <img src={gamingImg} alt="gaming" />
           </div>
           <p>Gaming</p>

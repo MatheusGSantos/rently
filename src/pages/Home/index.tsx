@@ -1,9 +1,37 @@
 import React from 'react';
 import Card from '../../components/Card';
+import CardContainer from '../../components/CardContainer';
 
 import Carousel from '../../components/Carousel';
 import SearchBar from '../../components/SearchBar';
 import { Container } from './styles';
+
+const cardContentList = [
+  {
+    id: '1',
+    description: 'bla',
+    image: 'vasd',
+    price: 'fafdas',
+    title: 'aaa',
+    seller: 'asdfas',
+  },
+  {
+    id: '2',
+    description: 'bla',
+    image: 'vasd',
+    price: 'fafdas',
+    title: 'aaa',
+    seller: 'asdfas',
+  },
+  {
+    id: '3',
+    description: 'bla',
+    image: 'vasd',
+    price: 'fafdas',
+    title: 'aaa',
+    seller: 'asdfas',
+  },
+];
 
 const Home: React.FC = () => {
   const [loading, setLoading] = React.useState(false);
@@ -23,8 +51,12 @@ const Home: React.FC = () => {
       <section>
         <div id="popular-products-wrapper">
           <h3>Popular</h3>
-          <Card description="bla" image="bla" seller="bla" title="bla" />
-          <Card description="bla" image="bla" seller="bla" title="bla" />
+          <CardContainer
+            columns={2}
+            gap="8px"
+            rows={2}
+            content={cardContentList}
+          />
         </div>
       </section>
     </Container>
