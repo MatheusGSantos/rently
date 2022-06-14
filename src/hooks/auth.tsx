@@ -4,7 +4,6 @@ import React, {
   useState,
   useContext,
   useMemo,
-  useEffect,
 } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';

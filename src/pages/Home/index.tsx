@@ -34,8 +34,6 @@ const cardContentList = [
 ];
 
 const Home: React.FC = () => {
-  const [loading, setLoading] = React.useState(false);
-
   return (
     <Container>
       <section>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import CardContainer from '../../components/CardContainer';
 import SearchBar from '../../components/SearchBar';
@@ -104,11 +104,6 @@ const Search: React.FC = () => {
     }
     return n;
   };
-
-  useEffect(() => {
-    console.info(`value: ${searchParams.get('value')}`);
-    console.info(`category: ${searchParams.get('category')}`);
-  }, [searchParams]);
 
   return (
     <Container>

@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
-import { Link } from 'react-router-dom';
+import { Link, Location, useLocation, useNavigate } from 'react-router-dom';
 
 import { FiLock, FiMail } from 'react-icons/fi';
 

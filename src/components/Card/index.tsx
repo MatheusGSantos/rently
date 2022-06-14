@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import { FaStar } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 import { Container } from './styles';
 
 export interface ICardProps {
@@ -23,8 +24,11 @@ const Card: React.FC<ICardProps> = ({
   style,
 }) => {
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  const handleClick = (): void => navigate(`/product/${id}`);
   return (
-    <Container style={style}>
+    <Container style={style} onClick={handleClick}>
       {loading ? (
         <>
           <Skeleton height="128px" width="128px" />
