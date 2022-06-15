@@ -103,7 +103,7 @@ export const SellerContainer = styled.div`
 
   background-color: rgba(0, 0, 0, 0.05);
   border-radius: 5px;
-  height: 170px !important;
+  height: 200px !important;
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Route, Routes } from 'react-router-dom';
+import Chat from '../pages/Chat';
 import Home from '../pages/Home';
 import LogIn from '../pages/LogIn';
 import NotFound from '../pages/NotFound';
@@ -23,7 +24,6 @@ const RoutesIndexer: React.FC = () => (
           </RedirectHandler>
         }
       />
-      <Route path="product/:id" element={<Product />} />
       <Route
         path="signup"
         element={
@@ -32,6 +32,8 @@ const RoutesIndexer: React.FC = () => (
           </RedirectHandler>
         }
       />
+      <Route path="product/:id" element={<Product />} />
+      <Route path="chat/:seller" element={<Chat />} />
       <Route path="*" element={<NotFound />} />
     </Route>
   </Routes>
