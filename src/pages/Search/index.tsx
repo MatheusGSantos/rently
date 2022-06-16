@@ -92,7 +92,9 @@ import { Container, PaginationNumber } from './styles';
 const Search: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [cardContentList, setCardContentList] = useState<IResultsFromSearchDTO>([] as IResultsFromSearchDTO);
+  const [cardContentList, setCardContentList] = useState<IResultsFromSearchDTO>(
+    [] as IResultsFromSearchDTO,
+  );
   const [page, setPage] = useState(1);
   const api = new ApiService();
 
@@ -112,14 +114,17 @@ const Search: React.FC = () => {
         return '6';
       default:
         return '';
-  }
+    }
+  };
 
-  useEffect(()=> {
-    const fetchAndUpdate = async () => {
-      const searchValue = searchParams.get('value') ?? getCategoryId(searchParams.get('category'));
+  useEffect(() => {
+    const fetchAndUpdate = async (): Promise<void> => {
+      const searchValue =
+        searchParams.get('value') ??
+        getCategoryId(searchParams.get('category'));
       const searchResult = await api.getResultsFromSearch(searchValue);
       setCardContentList(searchResult);
-    } 
+    };
 
     fetchAndUpdate();
   }, [searchParams]);

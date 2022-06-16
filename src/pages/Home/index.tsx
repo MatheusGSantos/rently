@@ -6,32 +6,32 @@ import Carousel from '../../components/Carousel';
 import SearchBar from '../../components/SearchBar';
 import { Container } from './styles';
 
-const cardContentList = [
-  {
-    id: '1',
-    description: 'bla',
-    image: 'vasd',
-    price: 'fafdas',
-    title: 'aaa',
-    seller: 'asdfas',
-  },
-  {
-    id: '2',
-    description: 'bla',
-    image: 'vasd',
-    price: 'fafdas',
-    title: 'aaa',
-    seller: 'asdfas',
-  },
-  {
-    id: '3',
-    description: 'bla',
-    image: 'vasd',
-    price: 'fafdas',
-    title: 'aaa',
-    seller: 'asdfas',
-  },
-];
+// const cardContentList = [
+//   {
+//     id: '1',
+//     description: 'bla',
+//     image: 'vasd',
+//     price: 'fafdas',
+//     title: 'aaa',
+//     seller: 'asdfas',
+//   },
+//   {
+//     id: '2',
+//     description: 'bla',
+//     image: 'vasd',
+//     price: 'fafdas',
+//     title: 'aaa',
+//     seller: 'asdfas',
+//   },
+//   {
+//     id: '3',
+//     description: 'bla',
+//     image: 'vasd',
+//     price: 'fafdas',
+//     title: 'aaa',
+//     seller: 'asdfas',
+//   },
+// ];
 
 const Home: React.FC = () => {
   return (
@@ -53,7 +53,8 @@ const Home: React.FC = () => {
             columns={2}
             gap="8px"
             rows={2}
-            content={cardContentList}
+            content={[]}
+            loading={true}
           />
         </div>
       </section>
