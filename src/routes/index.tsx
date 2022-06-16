@@ -33,7 +33,14 @@ const RoutesIndexer: React.FC = () => (
         }
       />
       <Route path="product/:id" element={<Product />} />
-      <Route path="chat/:seller" element={<Chat />} />
+      <Route
+        path="chat/:seller"
+        element={
+          <RedirectHandler handlerType="security">
+            <Chat />
+          </RedirectHandler>
+        }
+      />
       <Route path="*" element={<NotFound />} />
     </Route>
   </Routes>
