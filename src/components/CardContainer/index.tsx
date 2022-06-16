@@ -1,18 +1,21 @@
 import React, { useEffect } from 'react';
-import Card, { ICardProps } from '../Card';
+import { IResultsFromSearchDTO } from '../../services/dtos';
+import Card from '../Card';
 import { Container } from './styles';
 
 export interface CardContainerProps {
   columns: number;
   rows: number;
   gap: string;
-  content: ICardProps[];
+  loading: boolean;
+  content: IResultsFromSearchDTO;
 }
 
 const CardContainer: React.FC<CardContainerProps> = ({
   columns,
   content,
   gap,
+  loading,
   rows,
 }) => {
   const [areas, setAreas] = React.useState<string>('');
@@ -40,12 +43,15 @@ const CardContainer: React.FC<CardContainerProps> = ({
         return (
           <Card
             description={item.description}
+            loading={loading}
             id={item.id}
             key={item.id}
             image={item.image}
             price={item.price}
-            seller={item.seller}
-            title={item.title}
+            ObjectName={item.ObjectName}
+            OwnerName={item.OwnerName}
+            category={item.category}
+            email={item.email}
             style={{ gridArea: `area-${index}` }}
           />
         );

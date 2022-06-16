@@ -56,7 +56,7 @@ const Navbar: React.FC = () => {
           >
             <h4>Welcome,</h4>
             <p>
-              username <span />
+              {user.name} <span />
             </p>
             {dropDownActive && (
               <DropdownMenu

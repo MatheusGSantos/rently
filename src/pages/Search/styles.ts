@@ -10,6 +10,8 @@ export const Container = styled.div`
     background: #fff;
     border-radius: 0.5rem;
     box-shadow: 4px 4px 8px 1px rgb(0 0 0 / 20%);
+    min-width: 1264px;
+    min-height: 740px;
   }
 
   section {

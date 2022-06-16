@@ -3,27 +3,25 @@ import Skeleton from 'react-loading-skeleton';
 import { FaStar } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { Container } from './styles';
+import { IResultInfo } from '../../services/dtos';
 
-export interface ICardProps {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  seller: string;
-  price: string;
+export interface ICardProps extends IResultInfo {
   style?: React.CSSProperties;
+  loading: boolean;
 }
 
 const Card: React.FC<ICardProps> = ({
   id,
-  title,
   description,
   image,
-  seller,
   price,
+  ObjectName,
+  OwnerName,
+  category,
+  email,
+  loading,
   style,
 }) => {
-  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   const handleClick = (): void => navigate(`/product/${id}`);
@@ -52,11 +50,11 @@ const Card: React.FC<ICardProps> = ({
         <>
           <img src={image} alt="title" />
           <div id="card-body">
-            <h2>{title}</h2>
+            <h2>{ObjectName}</h2>
             <p>{description}</p>
             <div id="card-body-footer">
               <div id="seller-container">
-                <p>Seller: {seller}</p>
+                <p>Seller: {OwnerName}</p>
               </div>
               <p>
                 <FaStar size={16} color="#dbda14" /> 42

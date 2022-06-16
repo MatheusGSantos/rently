@@ -68,7 +68,7 @@ const SignUp: React.FC = () => {
           },
           error: {
             render({ data: error }) {
-              return `Error: ${error.message}`;
+              return `Error: ${error?.response?.data?.message}`;
             },
           },
         });

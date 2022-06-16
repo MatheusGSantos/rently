@@ -68,12 +68,12 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     async ({ email, password }: SignInCredentials, rememberMe: boolean) => {
       const id = toast.loading('Submitting...');
       try {
-        const response = await api.post('sessions', {
+        const response = await api.post('/login', {
           email,
           password,
         });
 
-        const { token, user } = response.data;
+        const { user, token } = response.data;
 
         if (rememberMe) {
           setLocalStorageItem('token', token);
@@ -87,11 +87,12 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
           render: 'Logged in successfully!',
           type: 'success',
           isLoading: false,
+          autoClose: 3000,
         });
         window.location.pathname === '/login' && navigate('/');
       } catch (err: any) {
         toast.update(id, {
-          render: `Error: ${err?.message}`,
+          render: `Error: ${err?.response?.data?.message}`,
           type: 'error',
           isLoading: false,
           autoClose: 4000,
