@@ -124,6 +124,7 @@ const Search: React.FC = () => {
         getCategoryId(searchParams.get('category'));
       const searchResult = await api.getResultsFromSearch(searchValue);
       setCardContentList(searchResult);
+      setLoading(false);
     };
 
     fetchAndUpdate();

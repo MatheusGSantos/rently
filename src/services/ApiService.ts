@@ -9,8 +9,10 @@ export class ApiService {
     await this.api.post('/user', user);
   }
 
-  public async getResultsFromSearch(search: string): Promise<IResultsFromSearchDTO> {
-    const {data} = await this.api.get(`/items/${search}`);
+  public async getResultsFromSearch(
+    search: string,
+  ): Promise<IResultsFromSearchDTO> {
+    const { data } = await this.api.get(`/item/${search}`);
 
     return data;
   }
