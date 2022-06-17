@@ -1,6 +1,6 @@
 import { AxiosInstance } from 'axios';
 import api from './api';
-import { ICreateUserDTO, IResultsFromSearchDTO } from './dtos';
+import { ICreateUserDTO, IResultsFromSearchDTO, IResultInfo } from './dtos';
 
 export class ApiService {
   private api: AxiosInstance = api;
@@ -13,6 +13,21 @@ export class ApiService {
     search: string,
   ): Promise<IResultsFromSearchDTO> {
     const { data } = await this.api.get(`/item/${search}`);
+
+    return data;
+  }
+
+  public async getResultsForHomePage(
+  ): Promise<IResultsFromSearchDTO> {
+    const { data } = await this.api.get(`/item/cards`);
+
+    return data;
+  }
+
+  public async getProductInfo(
+    id: string | undefined,
+  ): Promise<IResultInfo> {
+    const { data } = await this.api.get(`/item/one/${id}`);
 
     return data;
   }

@@ -7,6 +7,10 @@ export const Container = styled.div`
   display: flex;
   padding: 1.5rem;
   transition: border-color 0.1s ease-in-out;
+  img {
+    height: 100px;
+    width: 100px;
+  }
 
   &:hover {
     border-color: #8d75cd;

@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { Container } from './styles';
 import { IResultInfo } from '../../services/dtos';
 
+
 export interface ICardProps extends IResultInfo {
   style?: React.CSSProperties;
   loading: boolean;
@@ -23,7 +24,6 @@ const Card: React.FC<ICardProps> = ({
   style,
 }) => {
   const navigate = useNavigate();
-
   const handleClick = (): void => navigate(`/product/${id}`);
   return (
     <Container style={style} onClick={handleClick}>
@@ -48,7 +48,7 @@ const Card: React.FC<ICardProps> = ({
         </>
       ) : (
         <>
-          <img src={image} alt="title" />
+          <img src='http://images7.memedroid.com/images/UPLOADED731/5ed669c9889f8.jpeg' alt="title" />
           <div id="card-body">
             <h2>{ObjectName}</h2>
             <p>{description}</p>

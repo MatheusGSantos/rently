@@ -1,6 +1,9 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Card from '../../components/Card';
 import CardContainer from '../../components/CardContainer';
+import {IResultsFromSearchDTO} from '../../services/dtos'
+import { ApiService } from '../../services/ApiService';
+
 
 import Carousel from '../../components/Carousel';
 import SearchBar from '../../components/SearchBar';
@@ -34,6 +37,20 @@ import { Container } from './styles';
 // ];
 
 const Home: React.FC = () => {
+  const [loading, setLoading] = useState(true);
+  const [cardContentList, setCardContentList] = useState<IResultsFromSearchDTO>([] as IResultsFromSearchDTO);
+  const api = new ApiService();
+
+  useEffect(() => {
+    const fetchAndUpdate = async (): Promise<void> => {
+      const searchResult = await api.getResultsForHomePage();
+      setCardContentList(searchResult);
+      setLoading(false);
+    };
+
+    fetchAndUpdate();
+  }, []);
+
   return (
     <Container>
       <section>
@@ -53,8 +70,8 @@ const Home: React.FC = () => {
             columns={2}
             gap="8px"
             rows={2}
-            content={[]}
-            loading={true}
+            content={cardContentList}
+            loading={loading}
           />
         </div>
       </section>

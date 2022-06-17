@@ -58,6 +58,11 @@ export const Container = styled.div`
         font-size: 2rem;
         font-weight: 700;
       }
+
+      img {
+        height: 350px;
+        width: 600px;
+      }
     }
 
     #top-section-div2 {
