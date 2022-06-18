@@ -11,8 +11,11 @@ export interface IResultInfo {
   description: string;
   image: string;
   OwnerName: string;
+  owner_id: string;
   email: string;
   category: string;
 }
 
 export type IResultsFromSearchDTO = IResultInfo[];
+
+export type IChatListDTO = {id: string; name: string, seller: string}[];

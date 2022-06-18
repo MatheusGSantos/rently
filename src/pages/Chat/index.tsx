@@ -1,9 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { RiSendPlaneFill } from 'react-icons/ri';
 import { Container } from './styles';
+import { useAuth } from '../../hooks/auth';
+import { ApiService } from '../../services/ApiService';
+import { IChatListDTO } from '../../services/dtos';
 
-interface IChat {
+export interface IChat {
   sender: string;
   message: string;
 }
@@ -15,65 +18,78 @@ interface IChatHistory {
 const chatHistoryMock: IChatHistory = {
   Pedro: [
     {
-      sender: 'Pedro',
-      message: 'Sou pedro',
-    },
-    {
       sender: 'Matheus',
-      message: 'Hello',
+      message: 'Bom dia, quanto que tá o ps5?',
     },
     {
       sender: 'Pedro',
-      message: 'Sou pedro',
+      message: 'Bom dia, 6500',
     },
     {
       sender: 'Matheus',
-      message: 'Hello',
+      message: 'Faz desconto?',
     },
     {
       sender: 'Pedro',
-      message: 'Sou pedro',
+      message: 'Faço sim, 6400',
     },
     {
       sender: 'Matheus',
-      message: 'Hello',
+      message: 'Boa, vou comprar',
     },
     {
       sender: 'Pedro',
-      message: 'Sou pedro',
-    },
-    {
-      sender: 'Matheus',
-      message: 'Hello',
-    },
-    {
-      sender: 'Pedro',
-      message: 'Sou pedro',
-    },
-    {
-      sender: 'Matheus',
-      message: 'Hello',
-    },
-  ],
-  Gledson: [
-    {
-      sender: 'Gledson',
-      message: 'Sou Gledson',
-    },
-    {
-      sender: 'Matheus',
-      message: 'Hello',
-    },
-  ],
+      message: 'Fechado!',
+    }
+  ]
 };
 
 const Chat: React.FC = () => {
-  const { seller } = useParams();
-  const [loading, setLoading] = useState(true);
-  const [chatHistory, setChatHistory] = useState<IChatHistory>(chatHistoryMock);
-  const [message, setMessage] = useState('');
-  const [currentChat, setCurrentChat] = useState(seller);
+  const { seller='tmp' } = useParams();
+  const {user} = useAuth();
+  const api = new ApiService();
   const lastMessageRef = useRef<HTMLDivElement>(null);
+
+  const [loading, setLoading] = useState(true);
+  const [chatList, setChatList] = useState<IChatListDTO>([] as IChatListDTO);
+  const [chatHistory, setChatHistory] = useState<IChatHistory>({} as IChatHistory);
+  const [message, setMessage] = useState('');
+  const [currentChat, setCurrentChat] = useState('');
+
+  const fetchChatHistory = async (): Promise<void> => {
+    try {
+      const userChatList = await api.getChatList();
+
+      setChatList(userChatList);
+
+      const promiseList = userChatList.map(async (chat) => {
+        const messages = await api.getMessages(chat.id);
+
+        return {chat, messages};
+      })
+
+      Promise.all(promiseList).then((values) => {
+        const aux = {} as IChatHistory;
+        values.forEach(value => {
+          aux[value.chat.id] = value.messages;
+        })
+
+        const targetChat = userChatList.find(chat => chat.name === seller);
+
+        if(targetChat) {
+          setCurrentChat(targetChat.id);
+        }
+        
+        setChatHistory(aux);
+        setLoading(false);
+      }).catch(err => {
+        console.log(err);
+      });
+
+    } catch (error) {
+      console.info(error);
+    }
+  }
 
   useEffect(() => {
     lastMessageRef.current?.scrollIntoView({
@@ -82,20 +98,51 @@ const Chat: React.FC = () => {
     });
   }, [chatHistory[currentChat ?? '']]);
 
-  const handleSubmitMessage = (): void => {
+  useEffect(() => {
+    fetchChatHistory();
+  }, []);
+
+  
+
+  useEffect((): any => {
+      let delay = 800;
+      let timeout: any = null;
+      
+      const updateMessages = async (): Promise<void> => {
+        try {
+          console.log(currentChat)
+          const messages = await api.getMessages(currentChat, 800);
+          setChatHistory({
+            ...chatHistory,
+            [currentChat]: messages,
+          });
+          
+          delay = 800;
+          timeout = setTimeout(updateMessages, delay);
+  
+        } catch (error) {
+          console.info(error);
+          delay *= 2;
+          timeout = setTimeout(updateMessages, delay);
+        }
+      }
+      !loading && updateMessages();
+      return () => {
+        timeout && clearTimeout(timeout);
+      }
+
+  }, [loading]);
+
+  const handleSubmitMessage = async (): Promise<void> => {
     if (message.length > 0 && currentChat) {
-      setChatHistory((prevChatHistory) => {
-        const newChatHistory = { ...prevChatHistory };
-        newChatHistory[currentChat] = [
-          ...(newChatHistory[currentChat] ?? []),
-          {
-            sender: 'Matheus',
-            message,
-          },
-        ];
+      console.info(currentChat)
+      try {
+        const sellerId = chatList.find(chat => chat.id === currentChat)?.seller;
+        await api.sendMessage(message, sellerId ?? '');
         setMessage('');
-        return newChatHistory;
-      });
+      } catch(error) {
+        console.info(error);
+      }
     }
   };
 
@@ -107,36 +154,40 @@ const Chat: React.FC = () => {
 
   return (
     <Container>
-      {loading ? (
         <div id="wrapper">
           <aside>
-            {Object.keys(chatHistory).map((key) => (
-              <div
-                key={key}
-                onClick={() => setCurrentChat(key)}
-                className={currentChat === key ? 'active' : ''}
-              >
-                {key}
-              </div>
-            ))}
+            {!loading &&
+              chatList.map((chat) => (
+                <div
+                  key={chat.id}
+                  onClick={() => setCurrentChat(chat.id)}
+                  className={currentChat === chat.id ? 'active' : ''}
+                >
+                  {chat.name}
+                </div>
+              ))
+            }
           </aside>
           <section id="chat">
-            {currentChat && (
+            {!loading && currentChat && (
               <>
                 <div id="messages">
-                  {chatHistory[currentChat].map((chat, index) => (
-                    <div
-                      ref={lastMessageRef}
-                      className={
-                        chat.sender === currentChat
-                          ? 'seller-message'
-                          : 'user-message'
-                      }
-                      key={`${chat.sender}-me-${index}`}
-                    >
-                      <p>{chat.message}</p>
-                    </div>
-                  ))}
+                  {chatHistory[currentChat] && chatHistory[currentChat].map((chat, index) => {
+                    if (chat.message.length > 0) {
+                      return <div
+                        ref={lastMessageRef}
+                        className={
+                          chat.sender === user.name
+                            ? 'user-message': 'seller-message'
+                        }
+                        key={`${chat.sender}-me-${index}`}
+                      >
+                        <p>{chat.message}</p>
+                      </div>
+                    }
+                    return null;
+                  }
+                  )}
                 </div>
                 <div id="input-field">
                   <input
@@ -156,25 +207,6 @@ const Chat: React.FC = () => {
             )}
           </section>
         </div>
-      ) : (
-        <div id="wrapper">
-          <section>
-            <img src="" alt="" />
-            <div>
-              <h1>Title</h1>
-              <p>Seller</p>
-              <h3>Price</h3>
-            </div>
-          </section>
-          <section>
-            <h1>Description</h1>
-            <p>
-              assdcas rnsdncascs aejansfjas dasjiasoa sdasas. aos asdjnoxc asd
-              cxaons
-            </p>
-          </section>
-        </div>
-      )}
     </Container>
   );
 };

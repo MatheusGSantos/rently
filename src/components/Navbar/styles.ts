@@ -77,7 +77,7 @@ export const UserInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: left;
   margin-left: 2rem;
   margin-right: 1rem;
   position: relative;

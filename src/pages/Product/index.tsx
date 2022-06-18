@@ -18,7 +18,6 @@ const Product: React.FC = () => {
     const fetchProductInfo = async (): Promise<void> => {
       try {
         const productInfo = await api.getProductInfo(id);
-        console.log(productInfo);
         setProduct(productInfo);
         setLoading(false);
       } catch (error) {
@@ -70,7 +69,7 @@ const Product: React.FC = () => {
           <section id="top-section">
             <div id="top-section-div1">
               <h1>{product.ObjectName}</h1>
-              <img src="https://i.ytimg.com/vi/igde9tM_QPQ/maxresdefault.jpg" alt="product" />
+              <img src={product.image} alt="product" />
             </div>
             <div id="top-section-div2">
               <h3>$ {product.price}</h3>
@@ -78,7 +77,10 @@ const Product: React.FC = () => {
                 <h2>{product.OwnerName}</h2>
                 <button
                   type="button"
-                  onClick={() => navigate(`/chat/${product.OwnerName}`)}
+                  onClick={async () => {
+                    const result = await api.createChat(product.owner_id);
+                    navigate(`/chat/${product.OwnerName}`)
+                  }}
                 >
                   <BsChat size={20} style={{ marginRight: '0.5rem' }} /> Chat
                 </button>

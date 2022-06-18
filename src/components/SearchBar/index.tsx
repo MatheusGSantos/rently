@@ -6,11 +6,13 @@ import { Container } from './styles';
 interface SearchBarProps {
   redirectToSearch?: boolean;
   updateUrl?: boolean;
+  placeholder?: string;
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({
   redirectToSearch = true,
   updateUrl = false,
+  placeholder= "I'm looking for...",
 }) => {
   const [value, setValue] = useState('');
   const [isFocused, setIsFocused] = useState(false);
@@ -37,7 +39,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
     <Container isFocused={isFocused}>
       <input
         type="text"
-        placeholder="I'm looking for..."
+        placeholder={placeholder}
         value={value}
         onChange={handleValueChange}
         onKeyUp={handlePressEnter}

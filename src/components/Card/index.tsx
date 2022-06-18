@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { MouseEventHandler, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
-import { FaStar } from 'react-icons/fa';
+import { FaStar, FaTrash } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { Container } from './styles';
 import { IResultInfo } from '../../services/dtos';
@@ -9,6 +9,8 @@ import { IResultInfo } from '../../services/dtos';
 export interface ICardProps extends IResultInfo {
   style?: React.CSSProperties;
   loading: boolean;
+  showTrashCan?: boolean;
+  deleteCallBack?: (params: Record<string, any> | undefined) => void;
 }
 
 const Card: React.FC<ICardProps> = ({
@@ -22,6 +24,8 @@ const Card: React.FC<ICardProps> = ({
   email,
   loading,
   style,
+  deleteCallBack,
+  showTrashCan,
 }) => {
   const navigate = useNavigate();
   const handleClick = (): void => navigate(`/product/${id}`);
@@ -48,7 +52,7 @@ const Card: React.FC<ICardProps> = ({
         </>
       ) : (
         <>
-          <img src='http://images7.memedroid.com/images/UPLOADED731/5ed669c9889f8.jpeg' alt="title" />
+          <img src={image} alt="title" />
           <div id="card-body">
             <h2>{ObjectName}</h2>
             <p>{description}</p>
@@ -57,7 +61,16 @@ const Card: React.FC<ICardProps> = ({
                 <p>Seller: {OwnerName}</p>
               </div>
               <p>
-                <FaStar size={16} color="#dbda14" /> 42
+              {
+                showTrashCan ? (
+                  <FaTrash size={16} color="#ff6b6b" onClick={(e: any) => {
+                    e.stopPropagation();
+                    deleteCallBack && deleteCallBack({id})}}/>
+                ) : (
+                  <FaStar size={16} color="#dbda14" />
+                )
+              }
+              {!showTrashCan && " 42"}
               </p>
             </div>
           </div>

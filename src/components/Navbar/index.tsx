@@ -16,7 +16,7 @@ const DropdownMenu: React.FC<{ signOutCb: () => void }> = ({ signOutCb }) => {
   return (
     <DropdownContainer>
       <div>
-        <a href="/my-adds">My Ads</a>
+        <a href="/my-ads">My Ads</a>
         <hr />
         <a href="#" onClick={signOutCb}>
           Sign Out
@@ -54,7 +54,7 @@ const Navbar: React.FC = () => {
             ref={container}
             onClick={() => setDropDownActive(!dropDownActive)}
           >
-            <h4>Welcome,</h4>
+            <h4>Welcome</h4>
             <p>
               {user.name} <span />
             </p>

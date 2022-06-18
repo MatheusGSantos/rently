@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import Chat from '../pages/Chat';
 import Home from '../pages/Home';
 import LogIn from '../pages/LogIn';
+import MyAds from '../pages/MyAds';
 import NotFound from '../pages/NotFound';
 import Product from '../pages/Product';
 import Search from '../pages/Search';
@@ -41,6 +42,11 @@ const RoutesIndexer: React.FC = () => (
           </RedirectHandler>
         }
       />
+      <Route path="my-ads" element={
+        <RedirectHandler handlerType="security">
+          <MyAds />
+        </RedirectHandler>
+      } />
       <Route path="*" element={<NotFound />} />
     </Route>
   </Routes>

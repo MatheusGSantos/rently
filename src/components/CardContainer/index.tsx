@@ -9,6 +9,8 @@ export interface CardContainerProps {
   gap: string;
   loading: boolean;
   content: IResultsFromSearchDTO;
+  showTrashCan?: boolean;
+  deleteCallBack?: (params: Record<string, any> | undefined) => void;
 }
 
 const CardContainer: React.FC<CardContainerProps> = ({
@@ -16,6 +18,8 @@ const CardContainer: React.FC<CardContainerProps> = ({
   content,
   gap,
   loading,
+  showTrashCan,
+  deleteCallBack,
   rows,
 }) => {
   const [areas, setAreas] = React.useState<string>('');
@@ -50,9 +54,12 @@ const CardContainer: React.FC<CardContainerProps> = ({
             price={item.price}
             ObjectName={item.ObjectName}
             OwnerName={item.OwnerName}
+            owner_id={item.owner_id}
             category={item.category}
             email={item.email}
             style={{ gridArea: `area-${index}` }}
+            showTrashCan={showTrashCan}
+            deleteCallBack={deleteCallBack}
           />
         );
       })}

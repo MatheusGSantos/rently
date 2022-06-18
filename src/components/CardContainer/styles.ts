@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import { CardContainerProps } from '.';
 
-interface ContainerProps extends Omit<CardContainerProps, 'content' | 'loading'> {
+interface ContainerProps extends Omit<CardContainerProps, 'content' | 'loading'| 'showTrashCan'| 'deleteCallBack'> {
   areas: string;
 }
 
