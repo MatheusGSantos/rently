@@ -7,6 +7,7 @@ import { Container } from './styles';
 enum EButtonTypes {
   'primary',
   'danger',
+  'confirm',
 }
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {

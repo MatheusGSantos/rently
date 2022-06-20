@@ -18,6 +18,8 @@ const DropdownMenu: React.FC<{ signOutCb: () => void }> = ({ signOutCb }) => {
       <div>
         <a href="/my-ads">My Ads</a>
         <hr />
+        <a href="/create-ad">Create Ad</a>
+        <hr />
         <a href="#" onClick={signOutCb}>
           Sign Out
         </a>

@@ -11,11 +11,20 @@ export interface IResultInfo {
   description: string;
   image: string;
   OwnerName: string;
+  // eslint-disable-next-line camelcase
   owner_id: string;
   email: string;
   category: string;
 }
 
+export interface NewObjectDTO {
+  name: string;
+  description: string;
+  price: number;
+  category: string;
+  image: string;
+}
+
 export type IResultsFromSearchDTO = IResultInfo[];
 
-export type IChatListDTO = {id: string; name: string, seller: string}[];
+export type IChatListDTO = { id: string; name: string; seller: string }[];

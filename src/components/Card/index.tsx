@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { Container } from './styles';
 import { IResultInfo } from '../../services/dtos';
 
-
 export interface ICardProps extends IResultInfo {
   style?: React.CSSProperties;
   loading: boolean;
@@ -55,22 +54,29 @@ const Card: React.FC<ICardProps> = ({
           <img src={image} alt="title" />
           <div id="card-body">
             <h2>{ObjectName}</h2>
-            <p>{description}</p>
+            <p>
+              {description.length > 30
+                ? `${description.substr(0, 30)}...`
+                : description}
+            </p>
             <div id="card-body-footer">
               <div id="seller-container">
                 <p>Seller: {OwnerName}</p>
               </div>
               <p>
-              {
-                showTrashCan ? (
-                  <FaTrash size={16} color="#ff6b6b" onClick={(e: any) => {
-                    e.stopPropagation();
-                    deleteCallBack && deleteCallBack({id})}}/>
+                {showTrashCan ? (
+                  <FaTrash
+                    size={16}
+                    color="#ff6b6b"
+                    onClick={(e: any) => {
+                      e.stopPropagation();
+                      deleteCallBack && deleteCallBack({ id });
+                    }}
+                  />
                 ) : (
                   <FaStar size={16} color="#dbda14" />
-                )
-              }
-              {!showTrashCan && " 42"}
+                )}
+                {!showTrashCan && ' 42'}
               </p>
             </div>
           </div>

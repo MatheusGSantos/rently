@@ -1,7 +1,13 @@
 import { AxiosInstance } from 'axios';
 import api from './api';
-import {IChat} from '../pages/Chat';
-import { ICreateUserDTO, IResultsFromSearchDTO, IResultInfo, IChatListDTO } from './dtos';
+import { IChat } from '../pages/Chat';
+import {
+  ICreateUserDTO,
+  IResultsFromSearchDTO,
+  IResultInfo,
+  IChatListDTO,
+  NewObjectDTO,
+} from './dtos';
 
 export class ApiService {
   private api: AxiosInstance = api;
@@ -18,16 +24,13 @@ export class ApiService {
     return data;
   }
 
-  public async getResultsForHomePage(
-  ): Promise<IResultsFromSearchDTO> {
+  public async getResultsForHomePage(): Promise<IResultsFromSearchDTO> {
     const { data } = await this.api.get(`/item/cards`);
 
     return data;
   }
 
-  public async getProductInfo(
-    id: string | undefined,
-  ): Promise<IResultInfo> {
+  public async getProductInfo(id: string | undefined): Promise<IResultInfo> {
     const { data } = await this.api.get(`/item/one/${id}`);
 
     return data;
@@ -39,8 +42,8 @@ export class ApiService {
     return data;
   }
 
-  public async getMessages(chatId: string, timeout=0): Promise<IChat[]> {
-    const { data } = await this.api.get(`/chat/${chatId}`, {timeout});
+  public async getMessages(chatId: string, timeout = 0): Promise<IChat[]> {
+    const { data } = await this.api.get(`/chat/${chatId}`, { timeout });
 
     return data;
   }
@@ -51,17 +54,24 @@ export class ApiService {
     return data;
   }
 
+  public async createObject(newObject: NewObjectDTO): Promise<void> {
+    await this.api.post(`/item/`, newObject);
+  }
+
   public async getMyAds(): Promise<IResultsFromSearchDTO> {
-    const {data} = await this.api.get(`/item`);
+    const { data } = await this.api.get(`/item`);
 
     return data;
   }
 
-  public async deleteItem(itemId: string): Promise<void>{
-    await this.api.delete(`/item/${itemId}`)
+  public async deleteItem(itemId: string): Promise<void> {
+    await this.api.delete(`/item/${itemId}`);
   }
 
-  public async sendMessage(message: string, receiver: string): Promise<IChatListDTO> {
+  public async sendMessage(
+    message: string,
+    receiver: string,
+  ): Promise<IChatListDTO> {
     const { data } = await this.api.post(`/chat`, {
       message,
       receiver,

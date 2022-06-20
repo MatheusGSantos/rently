@@ -4,10 +4,12 @@ import { shade } from 'polished';
 const buttonBgColors = {
   primary: '#4B3387',
   danger: '#ff6b6b',
+  confirm: '#51b651',
 };
 const buttonTextColors = {
   primary: '#fff',
   danger: '#fff',
+  confirm: '#fff',
 };
 
 interface ContainerProps {
